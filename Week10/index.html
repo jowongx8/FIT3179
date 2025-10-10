@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demographics of Australia</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" />
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 40px;
+      background: #fafafa;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p.description {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #555;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+
+    .vis-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.3em;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Demographics of Australia</h1>
+  <p class="description">
+    A comparison of cultural diversity and population growth across Australian states, using data from the Australian Bureau of Statistics (ABS).
+  </p>
+
+  <div class="grid">
+    <div class="vis-container">
+      <div id="map"></div>
+    </div>
+
+    <div class="vis-container">
+      <div id="pop-growth"></div>
+    </div>
+  </div>
+
+  <script>
+    vegaEmbed("#map", "../Week9/non_english_speakers_map.vl.json", {actions: false}).catch(console.error);
+
+    vegaEmbed("#pop-growth", "population_growth.vl.json", {actions: false}).catch(console.error);
+  </script>
+</body>
+</html>
