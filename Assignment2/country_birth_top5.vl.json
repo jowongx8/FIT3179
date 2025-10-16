@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.2.0.json",
+  "title": {
+    "text": "Top 5 Countries of Birth by Australian State (2021 Census)",
+    "anchor": "start",
+    "fontSize": 18,
+    "fontWeight": "bold",
+    "color": "#003366"
+  },
+  "width": 900,
+  "height": 450,
+  "autosize": {"type": "fit", "contains": "padding"},
+  "data": {
+    "url": "https://jowongx8.github.io/FIT3179/data/country_birth_top5.csv",
+    "format": {"type": "csv"}
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State / Territory",
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "labelLimit": 80,
+        "labelAlign": "center",
+        "labelBaseline": "top",
+        "labelLineHeight": 14
+      }
+    },
+    "y": {
+      "field": "Count",
+      "type": "quantitative",
+      "title": "Number of Residents",
+      "axis": {"labelFontSize": 12, "titleFontSize": 13, "grid": true}
+    },
+    "color": {
+      "field": "CountryOfBirth",
+      "type": "nominal",
+      "title": "Country or Region of Birth",
+      "scale": {"scheme": "tableau10"},
+      "legend": {"orient": "bottom", "columns": 2}
+    },
+    "tooltip": [
+      {"field": "State", "title": "State / Territory"},
+      {"field": "CountryOfBirth", "title": "Country or Region"},
+      {"field": "Count", "title": "Population", "format": ","}
+    ]
+  },
+  "config": {
+    "background": "#ffffff",
+    "view": {"stroke": null},
+    "axis": {
+      "labelColor": "#333",
+      "titleColor": "#003366",
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI"
+    },
+    "legend": {
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}

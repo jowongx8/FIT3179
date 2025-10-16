@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demographics of Australia</title>
+
+  <!-- Pure CSS for layout -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+
+  <!-- Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <!-- Styling -->
+  <style>
+body {
+  background-color: #f8f9fa;
+  font-family: "Segoe UI", "Open Sans", Arial, sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+.content {
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 40px auto;
+  padding: 40px 50px;
+}
+
+/* HEADER TYPOGRAPHY */
+h1 {
+  text-align: center;
+  font-size: 2.2em;
+  color: #002855;
+  margin-bottom: 0.3em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  text-align: center;
+  font-size: 1.1em;
+  color: #444;
+  max-width: 750px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+
+/* SECTION HEADINGS */
+h2 {
+  font-size: 1.5em;
+  color: #004a99;
+  font-weight: 600;
+  border-left: 5px solid #004a99;
+  padding-left: 10px;
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+/* BODY TEXT */
+p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* HIGHLIGHTING IMPORTANT INFORMATION */
+p strong {
+  color: #002855;
+  font-weight: 600;
+}
+
+p span.highlight {
+  color: #0078d4;
+  font-weight: 600;
+}
+
+/* CHART STYLING */
+.chart {
+  margin: 25px 0 40px 0;
+  text-align: center;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 0.9em;
+  color: #666;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+/* SECTION SPACING */
+.section {
+  margin-bottom: 60px;
+  border-top: 1px solid #eee;
+  padding-top: 30px;
+}
+
+/* LINK STYLING */
+a {
+  color: #0056b3;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* MAKE CHARTS RESPONSIVE */
+.chart svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+  </style>
+</head>
+
+<body>
+  <div class="content">
+<header>
+  <h1>Australia’s Changing Face: Population and Cultural Diversity</h1>
+  <p class="intro">
+    Australia is a nation shaped by <strong>migration, language, and growth</strong>. 
+    Over the past two decades, the population has surged, not just in size, 
+    but in the <strong>rich mix of cultures and languages</strong> that call it home. 
+    From the bustling, multilingual cities of 
+    <span class="highlight nsw">New South Wales</span> and 
+    <span class="highlight vic">Victoria</span> 
+    to the quieter communities of 
+    <span class="highlight tas">Tasmania</span> and the 
+    <span class="highlight nt">Northern Territory</span>, 
+    every state tells a different story.
+  </p>
+</header>
+
+
+<section class="section">
+  <h2>Languages Spoken at Home (2021 Census)</h2>
+  <div id="map" class="chart"></div>
+
+  <p>
+    The map illustrates the percentage of Australians who <strong>speak a language other than English at home</strong>, 
+    based on 2021 Census data from the <strong>Australian Bureau of Statistics (ABS)</strong>. 
+    States are shaded using a <strong>blue gradient</strong>, darker tones represent higher proportions of non-English speakers.
+  </p>
+
+  <p>
+    <span style="color:#ff7f0e; font-weight:600;">New South Wales</span> and 
+    <span style="color:#9467bd; font-weight:600;">Victoria</span> display the highest proportions of residents 
+    speaking languages other than English at home.  
+    These states are home to <strong>large multicultural communities</strong> centered around Sydney and Melbourne, 
+    reflecting Australia’s long-standing migration hubs.
+  </p>
+
+  <p>
+    <span style="color:#17becf; font-weight:600;">Queensland</span> and 
+    <span style="color:#e377c2; font-weight:600;">Western Australia</span> also show 
+    <strong>moderate linguistic diversity</strong>, shaped by interstate migration and growing coastal cities.  
+    In comparison, <span style="color:#2ca02c; font-weight:600;">South Australia</span> and 
+    <span style="color:#bcbd22; font-weight:600;">Tasmania</span> have smaller multilingual populations, 
+    while the <span style="color:#8c564b; font-weight:600;">Northern Territory</span> and 
+    <span style="color:#1f77b4; font-weight:600;">Australian Capital Territory</span> remain the least linguistically varied.
+  </p>
+
+  <p>
+    Overall, the distribution highlights how <strong>migration, economic opportunity, and city size</strong> 
+    influence where cultural and language diversity flourishes across Australia.
+  </p>
+</section>
+
+
+
+<section class="section">
+  <h2>Population Growth of Australian States (2001–2024)</h2>
+  <div id="pop" class="chart"></div>
+
+  <p>
+    Australia’s population has steadily expanded over the past two decades, 
+    revealing distinct growth patterns across states. 
+    The steady rise reflects <strong>urbanisation, migration, and economic opportunity</strong> but also moments of disruption, such as the <strong style="color:#d32f2f;">2020 COVID-19 border closures</strong>, 
+    which briefly slowed population growth nationwide.
+  </p>
+
+  <p>
+    <span style="color:#ff7f0e; font-weight:600;">New South Wales</span> remains the most populous state, 
+    with numbers climbing gradually from 6.6 million to over 8 million. 
+    <span style="color:#9467bd; font-weight:600;">Victoria</span> follows a similar upward path, 
+    its strong population growth driven by <strong>migration and job opportunities</strong> in Melbourne.
+  </p>
+
+  <p>
+    <span style="color:#17becf; font-weight:600;">Queensland</span> shows one of the most pronounced climbs, 
+    its warmer climate and expanding coastal cities have attracted residents from other states. 
+    Meanwhile, <span style="color:#e377c2; font-weight:600;">Western Australia</span> has grown steadily, 
+    boosted by periods of <strong>mining-related migration</strong> and economic demand.
+  </p>
+
+  <p>
+    In contrast, smaller states such as 
+    <span style="color:#2ca02c; font-weight:600;">South Australia</span>, 
+    <span style="color:#bcbd22; font-weight:600;">Tasmania</span>, and 
+    <span style="color:#1f77b4; font-weight:600;">Australian Capital Territory</span> 
+    show more modest but consistent increases. 
+    <span style="color:#8c564b; font-weight:600;">Northern Territory</span> remains the smallest by population, 
+    though its trendline reveals periods of fluctuation tied to <strong>employment mobility and regional development</strong>.
+  </p>
+
+  <p>
+    Together, these lines tell a clear story, Australia’s growth is steady and continuous, 
+    shaped by <strong>migration patterns, urban concentration, and policy changes</strong> that continue to redefine 
+    where Australians live and work.
+  </p>
+</section>
+
+
+<section class="section">
+  <h2>Top 5 Countries of Birth by Australian State (2021 Census)</h2>
+  <div id="ageStacked" class="chart"></div>
+
+  <p>
+    The stacked bar chart below compares the number of residents across each state by their <strong>country or region of birth</strong>. 
+    It reveals how <strong>migration patterns and regional economies</strong> have shaped Australia’s cultural diversity with some states drawing heavily from nearby Asian regions, while others maintain strong historical ties to the 
+    <span style="color:#2ca02c; font-weight:600;">United Kingdom</span>.
+  </p>
+
+  <p>
+    <span style="color:#1f77b4; font-weight:600;">New South Wales</span> and 
+    <span style="color:#9467bd; font-weight:600;">Victoria</span> dominate in migrant numbers, 
+    showing especially large groups from 
+    <span style="color:#2ca02c; font-weight:600;">the United Kingdom</span>, 
+    <span style="color:#17becf; font-weight:600;">Southern Asia</span>, and 
+    <span style="color:#1f77b4; font-weight:600;">Chinese Asia</span>.  
+    These states act as <strong>major entry points for new arrivals</strong>, 
+    reflecting their strong economies and established multicultural communities.
+  </p>
+
+  <p>
+    <span style="color:#ff7f0e; font-weight:600;">Western Australia</span> and 
+    <span style="color:#17becf; font-weight:600;">Queensland</span> show notable shares from 
+    <span style="color:#ff7f0e; font-weight:600;">Maritime South-East Asia</span> 
+    and <span style="color:#17becf; font-weight:600;">Southern Asia</span>, 
+    linked to <strong>employment opportunities in mining and tourism</strong>.  
+    Smaller states such as 
+    <span style="color:#bcbd22; font-weight:600;">Tasmania</span> and 
+    <span style="color:#8c564b; font-weight:600;">South Australia</span> 
+    have smaller migrant populations but still exhibit <strong>diverse regional origins</strong>.
+  </p>
+
+  <p>
+    Across Australia, migration from 
+    <span style="color:#1f77b4; font-weight:600;">Chinese Asia</span> and 
+    <span style="color:#17becf; font-weight:600;">Southern Asia</span> 
+    continues to grow, highlighting Australia’s <strong>increasing integration with the Asia-Pacific region</strong>.  
+    This chart captures how every state contributes uniquely to the country’s evolving cultural landscape.
+  </p>
+</section>
+
+
+    <footer>
+      Data source: Australian Bureau of Statistics<br>
+      Created by Joshua Wong — FIT3179 Data Visualisation 2
+    </footer>
+  </div>
+
+  <script>
+    vegaEmbed("#map", "../Week9/non_english_speakers_map.vl.json", {actions: false}).catch(console.error);
+    vegaEmbed("#pop", "../Week10/population_growth.vl.json", {actions: false}).catch(console.error);
+    vegaEmbed("#ageStacked", "./country_birth_top5.vl.json", {actions: false}).catch(console.error);
+  </script>
+</body>
+</html>
