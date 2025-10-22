@@ -1,65 +1,79 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "title": "Population Growth of Australian States (2001–2024)",
-  "width": 800,
-  "height": 400,
-  "data": {
-    "url": "https://jowongx8.github.io/FIT3179/data/population_by_state.csv"
-  },
-  "layer": [
-    {
-      "params": [
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": "container",
+    "autosize": { "type": "fit", "contains": "padding" },
+    "data": {
+        "url": "https://jowongx8.github.io/FIT3179/data/population_by_state.csv"
+    },
+    "layer": [
         {
-          "name": "state_highlight",
-          "select": {"type": "point", "fields": ["State"]},
-          "bind": "legend"
+            "params": [
+                {
+                    "name": "state_highlight",
+                    "select": { "type": "point", "fields": ["State"] },
+                    "bind": "legend"
+                }
+            ],
+            "mark": { "type": "line", "point": true },
+            "encoding": {
+                "x": { "field": "Year", "type": "ordinal", "title": "Year" },
+                "y": {
+                    "field": "Population",
+                    "type": "quantitative",
+                    "title": "Estimated Resident Population",
+                    "axis": { "format": "~s" }
+                },
+                "color": {
+                    "field": "State",
+                    "type": "nominal",
+                    "legend": {
+                        "title": "State",
+                        "orient": "bottom",
+                        "direction": "horizontal",
+                        "columns": 3,
+                        "labelLimit": 200,
+                        "labelFontSize": 12,
+                        "symbolSize": 100
+                    }
+                },
+                "opacity": {
+                    "condition": { "param": "state_highlight", "value": 1 },
+                    "value": 0.15
+                },
+                "tooltip": [
+                    { "field": "State", "title": "State" },
+                    { "field": "Year", "title": "Year" },
+                    { "field": "Population", "title": "Population", "format": "," }
+                ]
+            }
+        },
+        {
+            "mark": { "type": "rule", "color": "red", "strokeDash": [4, 2] },
+            "encoding": { "x": { "datum": "2020" } }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "dx": -5,
+                "dy": 15,
+                "color": "red"
+            },
+            "encoding": {
+                "x": { "datum": "2020" },
+                "text": { "value": "2020: COVID-19 border closures" }
+            }
         }
-      ],
-      "mark": {"type": "line", "point": true},
-      "encoding": {
-        "x": {"field": "Year", "type": "ordinal", "title": "Year"},
-        "y": {
-          "field": "Population",
-          "type": "quantitative",
-          "title": "Estimated Resident Population",
-          "axis": {"format": "~s"}
+    ],
+    "config": {
+        "view": { "stroke": "transparent" },
+        "legend": {
+            "orient": "bottom",
+            "titleFontSize": 13,
+            "labelFontSize": 12,
+            "padding": 10
         },
-        "color": {
-          "field": "State",
-          "type": "nominal",
-          "legend": {"title": "State/Territory"}
-        },
-        "opacity": {
-          "condition": {"param": "state_highlight", "value": 1},
-          "value": 0.15
-        },
-        "tooltip": [
-          {"field": "State", "title": "State"},
-          {"field": "Year", "title": "Year"},
-          {"field": "Population", "title": "Population", "format": ","}
-        ]
-      }
-    },
-    {
-      "mark": {"type": "rule", "color": "red", "strokeDash": [4, 2]},
-      "encoding": {"x": {"datum": "2020"}}
-    },
-    {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 5,
-        "dy": -5,
-        "color": "red"
-      },
-      "encoding": {
-        "x": {"datum": "2020"},
-        "text": {"value": "2020: COVID-19 border closures"}
-      }
+        "title": { "fontSize": 16, "fontWeight": "bold" }
     }
-  ],
-  "config": {
-    "legend": {"orient": "bottom"},
-    "title": {"fontSize": 16, "fontWeight": "bold"}
-  }
 }

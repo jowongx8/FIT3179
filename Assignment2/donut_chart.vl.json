@@ -1,0 +1,42 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "Top Non-English Languages Spoken at Home in Australia",
+        "anchor": "middle",
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "color": "#002855"
+    },
+    "width": "container",
+    "height": "container",
+    "autosize": { "type": "fit", "contains": "padding" },
+    "data": {
+        "url": "https://jowongx8.github.io/FIT3179/data/languages_top7.csv"
+    },
+    "mark": { "type": "arc", "innerRadius": 80, "outerRadius": 130 },
+    "encoding": {
+        "theta": { "field": "Count", "type": "quantitative" },
+        "color": {
+            "field": "Language",
+            "type": "nominal",
+            "scale": { "scheme": "set2" },
+            "title": "Language",
+            "legend": {
+                "orient": "none",
+                "legendX": 400,
+                "legendY": 20,
+                "labelFontSize": 11,
+                "symbolSize": 80,
+                "direction": "vertical",
+                "strokeColor": "black",
+                "padding": 10,
+                "cornerRadius": 6
+            }
+        },
+        "tooltip": [{ "field": "Language" }, { "field": "Count", "type": "quantitative", "format": "," }]
+    },
+    "view": { "stroke": null },
+    "config": {
+        "arc": { "stroke": "#fff", "strokeWidth": 1 }
+    }
+}

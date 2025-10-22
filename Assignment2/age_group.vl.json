@@ -1,0 +1,62 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": "container",
+    "data": {
+        "url": "https://jowongx8.github.io/FIT3179/data/age_distribution.csv"
+    },
+    "params": [
+        {
+            "name": "highlight",
+            "select": { "type": "point", "on": "mouseover", "fields": ["AgeGroup"] }
+        }
+    ],
+    "mark": { "type": "bar", "cornerRadiusEnd": 4 },
+    "encoding": {
+        "y": {
+            "field": "AgeGroup",
+            "type": "ordinal",
+            "sort": [
+                "85 years and over",
+                "80–84 years",
+                "75–79 years",
+                "70–74 years",
+                "65–69 years",
+                "60–64 years",
+                "55–59 years",
+                "50–54 years",
+                "45–49 years",
+                "40–44 years",
+                "35–39 years",
+                "30–34 years",
+                "25–29 years",
+                "20–24 years",
+                "15–19 years",
+                "10–14 years",
+                "5–9 years",
+                "0–4 years"
+            ],
+            "title": "Age Group"
+        },
+        "x": {
+            "field": "Population",
+            "type": "quantitative",
+            "title": "Population",
+            "scale": { "nice": true }
+        },
+        "color": {
+            "condition": { "param": "highlight", "value": "#938FB8" },
+            "value": "lightgrey"
+        },
+        "tooltip": [
+            { "field": "AgeGroup", "type": "nominal", "title": "Age Group" },
+            {
+                "field": "Population",
+                "type": "quantitative",
+                "title": "Population",
+                "format": ","
+            }
+        ]
+    },
+    "config": { "view": { "stroke": null }, "axis": { "grid": false } }
+}

@@ -1,102 +1,159 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "title": "Australians Speaking a Language Other than English at Home",
-  "width": 800,
-  "height": 500,
-  "projection": {"type": "mercator"},
-  "view": {"stroke": "black"},
-  "layer": [
-    {
-      "data": {
-        "url": "https://jowongx8.github.io/FIT3179/data/states.json",
-        "format": {"type": "topojson", "feature": "STE_2021_AUST_GDA94"}
-      },
-      "transform": [
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 600,
+    "background": "#fafbfc",
+    "autosize": { "type": "fit", "contains": "padding" },
+    "projection": { "type": "mercator" },
+    "view": { "stroke": "lightgray" },
+
+    "params": [
         {
-          "lookup": "properties.STE_NAME21",
-          "from": {
-            "data": {
-              "url": "https://jowongx8.github.io/FIT3179/data/language_by_state.csv"
-            },
-            "key": "State",
-            "fields": ["Total", "English"]
-          }
-        },
-        {"calculate": "datum.Total - datum.English", "as": "NonEnglish"},
-        {
-          "calculate": "(datum.Total - datum.English) / datum.Total * 100",
-          "as": "PercentNonEnglish"
+            "name": "selectedState",
+            "value": "All",
+            "bind": {
+                "input": "select",
+                "name": "Select State: ",
+                "options": [
+                    "All",
+                    "New South Wales",
+                    "Victoria",
+                    "Queensland",
+                    "South Australia",
+                    "Western Australia",
+                    "Tasmania",
+                    "Northern Territory",
+                    "Australian Capital Territory"
+                ],
+                "labels": ["All States", "NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"]
+            }
         }
-      ],
-      "mark": {"type": "geoshape"},
-      "encoding": {
-        "color": {
-          "field": "PercentNonEnglish",
-          "type": "quantitative",
-          "scale": {"scheme": {"name": "blues", "count": 6}},
-          "title": "% Non-English Speakers"
+    ],
+
+    "layer": [
+        {
+            "data": {
+                "url": "https://jowongx8.github.io/FIT3179/data/states.json",
+                "format": { "type": "topojson", "feature": "STE_2021_AUST_GDA94" }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.STE_NAME21",
+                    "from": {
+                        "data": {
+                            "url": "https://jowongx8.github.io/FIT3179/data/language_by_state.csv"
+                        },
+                        "key": "State",
+                        "fields": ["Total", "English"]
+                    }
+                },
+                { "calculate": "datum.Total - datum.English", "as": "NonEnglish" },
+                {
+                    "calculate": "(datum.Total - datum.English) / datum.Total * 100",
+                    "as": "PercentNonEnglish"
+                },
+                {
+                    "filter": "selectedState == 'All' || datum.properties.STE_NAME21 == selectedState"
+                }
+            ],
+            "mark": { "type": "geoshape" },
+            "encoding": {
+                "color": {
+                    "field": "PercentNonEnglish",
+                    "type": "quantitative",
+                    "scale": { "scheme": { "name": "oranges", "count": 6 } },
+                    "title": "% Non-English Speakers",
+                    "legend": {
+                        "orient": "top-right",
+                        "direction": "vertical",
+                        "titleAnchor": "middle",
+                        "strokeColor": "black",
+                        "cornerRadius": 6,
+                        "padding": 10
+                    }
+                },
+                "tooltip": [
+                    { "field": "properties.STE_NAME21", "title": "State" },
+                    { "field": "Total", "title": "Total Population", "format": "," },
+                    { "field": "English", "title": "English Only Speakers", "format": "," },
+                    { "field": "NonEnglish", "title": "Non-English Speakers", "format": "," },
+                    { "field": "PercentNonEnglish", "title": "% Non-English", "format": ".2f" }
+                ]
+            }
         },
-        "tooltip": [
-          {"field": "properties.STE_NAME21", "title": "State"},
-          {"field": "Total", "title": "Total Population", "format": ","},
-          {"field": "English", "title": "English Only", "format": ","},
-          {
-            "field": "NonEnglish",
-            "title": "Non-English Speakers",
-            "format": ","
-          },
-          {
-            "field": "PercentNonEnglish",
-            "title": "% Non-English",
-            "format": ".2f"
-          }
-        ]
-      }
-    },
-    {
-      "data": {
-        "url": "https://jowongx8.github.io/FIT3179/data/states.json",
-        "format": {"type": "topojson", "feature": "ne_110m_graticules_10"}
-      },
-      "mark": {
-        "type": "geoshape",
-        "stroke": "lightgray",
-        "strokeWidth": 0.5,
-        "fill": null
-      }
-    },
-    {
-      "data": {
-        "url": "https://jowongx8.github.io/FIT3179/data/states.json",
-        "format": {"type": "topojson", "feature": "STE_2021_AUST_GDA94"}
-      },
-      "mark": {
-        "type": "geoshape",
-        "stroke": "black",
-        "strokeWidth": 0.5,
-        "fill": null
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {"city": "Canberra", "lon": 149.13, "lat": -35.28},
-          {"city": "Sydney", "lon": 151.21, "lat": -33.87},
-          {"city": "Melbourne", "lon": 144.96, "lat": -37.81},
-          {"city": "Brisbane", "lon": 153.03, "lat": -27.47},
-          {"city": "Perth", "lon": 115.86, "lat": -31.95},
-          {"city": "Adelaide", "lon": 138.6, "lat": -34.93},
-          {"city": "Hobart", "lon": 147.33, "lat": -42.88},
-          {"city": "Darwin", "lon": 130.84, "lat": -12.46}
-        ]
-      },
-      "mark": {"type": "circle", "color": "red", "size": 60},
-      "encoding": {
-        "longitude": {"field": "lon", "type": "quantitative"},
-        "latitude": {"field": "lat", "type": "quantitative"},
-        "tooltip": {"field": "city"}
-      }
+        {
+            "data": {
+                "url": "https://jowongx8.github.io/FIT3179/data/states.json",
+                "format": { "type": "topojson", "feature": "ne_110m_graticules_10" }
+            },
+            "mark": { "type": "geoshape", "stroke": "lightgray", "strokeWidth": 0.5, "fill": null }
+        },
+        {
+            "data": {
+                "url": "https://jowongx8.github.io/FIT3179/data/states.json",
+                "format": { "type": "topojson", "feature": "STE_2021_AUST_GDA94" }
+            },
+            "mark": { "type": "geoshape", "stroke": "#333", "strokeWidth": 0.5, "fill": null }
+        },
+        {
+            "data": {
+                "values": [
+                    { "city": "Canberra", "lon": 149.13, "lat": -35.28 },
+                    { "city": "Sydney", "lon": 151.21, "lat": -33.87 },
+                    { "city": "Melbourne", "lon": 144.96, "lat": -37.81 },
+                    { "city": "Brisbane", "lon": 153.03, "lat": -27.47 },
+                    { "city": "Perth", "lon": 115.86, "lat": -31.95 },
+                    { "city": "Adelaide", "lon": 138.6, "lat": -34.93 },
+                    { "city": "Hobart", "lon": 147.33, "lat": -42.88 },
+                    { "city": "Darwin", "lon": 130.84, "lat": -12.46 }
+                ]
+            },
+            "mark": { "type": "circle", "color": "red", "size": 60 },
+            "encoding": {
+                "longitude": { "field": "lon", "type": "quantitative" },
+                "latitude": { "field": "lat", "type": "quantitative" },
+                "tooltip": { "field": "city" }
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    { "city": "Canberra", "lon": 149.13, "lat": -35.28 },
+                    { "city": "Sydney", "lon": 151.21, "lat": -33.87 },
+                    { "city": "Melbourne", "lon": 144.96, "lat": -37.81 },
+                    { "city": "Brisbane", "lon": 153.03, "lat": -27.47 },
+                    { "city": "Perth", "lon": 115.86, "lat": -31.95 },
+                    { "city": "Adelaide", "lon": 138.6, "lat": -34.93 },
+                    { "city": "Hobart", "lon": 147.33, "lat": -42.88 },
+                    { "city": "Darwin", "lon": 130.84, "lat": -12.46 }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "dx": -7,
+                "dy": -3,
+                "fontSize": 12,
+                "fontWeight": "bold",
+                "color": "#00382f"
+            },
+            "encoding": {
+                "longitude": { "field": "lon", "type": "quantitative" },
+                "latitude": { "field": "lat", "type": "quantitative" },
+                "text": { "field": "city" }
+            }
+        },
+        {
+            "mark": { "type": "text", "opacity": 0 },
+            "encoding": {
+                "x": { "value": 80 },
+                "y": { "value": 470 }
+            }
+        }
+    ],
+
+    "config": {
+        "legend": { "labelFontSize": 11, "titleFontSize": 12 },
+        "view": { "stroke": null }
     }
-  ],
-  "config": {}
 }

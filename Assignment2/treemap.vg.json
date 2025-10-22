@@ -1,0 +1,124 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 1050,
+    "height": 700,
+    "background": "#fafbfc",
+    "signals": [{ "name": "layout", "value": "squarify" }],
+    "data": [
+        {
+            "name": "rawData",
+            "url": "https://jowongx8.github.io/FIT3179/data/religion_treemap.csv",
+            "format": { "type": "csv" },
+            "transform": [
+                {
+                    "type": "formula",
+                    "as": "id",
+                    "expr": "datum.Category + '-' + datum.Religion"
+                },
+                {
+                    "type": "formula",
+                    "as": "parent",
+                    "expr": "datum.Category"
+                },
+                {
+                    "type": "formula",
+                    "as": "size",
+                    "expr": "datum.Count"
+                }
+            ]
+        },
+        {
+            "name": "categories",
+            "values": [
+                { "id": "root", "parent": null },
+                { "id": "Christianity", "parent": "root" },
+                { "id": "Non-Christian", "parent": "root" },
+                { "id": "Other Religions", "parent": "root" },
+                { "id": "No Religion / Secular", "parent": "root" }
+            ]
+        },
+        {
+            "name": "combined",
+            "source": ["categories", "rawData"]
+        },
+        {
+            "name": "tree",
+            "source": "combined",
+            "transform": [
+                { "type": "stratify", "key": "id", "parentKey": "parent" },
+                {
+                    "type": "treemap",
+                    "field": "size",
+                    "method": { "signal": "layout" },
+                    "size": [{ "signal": "width" }, { "signal": "height" }],
+                    "round": true,
+                    "paddingInner": 1,
+                    "paddingOuter": 2
+                }
+            ]
+        },
+        {
+            "name": "nodes",
+            "source": "tree",
+            "transform": [{ "type": "filter", "expr": "datum.children && datum.depth === 1" }]
+        },
+        {
+            "name": "leaves",
+            "source": "tree",
+            "transform": [{ "type": "filter", "expr": "!datum.children" }]
+        }
+    ],
+    "scales": [
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": ["Christianity", "Non-Christian", "Other Religions", "No Religion / Secular"],
+            "range": ["#8B4513", "#009688", "#9C27B0", "#FFC107"]
+        }
+    ],
+    "marks": [
+        {
+            "type": "rect",
+            "from": { "data": "leaves" },
+            "encode": {
+                "enter": {
+                    "stroke": { "value": "white" },
+                    "strokeWidth": { "value": 1 },
+                    "tooltip": {
+                        "signal": "{'Category': datum.parent, 'Religion': datum.Religion, 'Population': format(datum.size, ',')}"
+                    }
+                },
+                "update": {
+                    "x": { "field": "x0" },
+                    "y": { "field": "y0" },
+                    "x2": { "field": "x1" },
+                    "y2": { "field": "y1" },
+                    "fill": { "scale": "color", "field": "parent" }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": { "data": "nodes" },
+            "encode": {
+                "enter": {
+                    "font": { "value": "Helvetica Neue, Arial" },
+                    "fontWeight": { "value": "bold" },
+                    "fontSize": { "value": 22 },
+                    "align": { "value": "left" },
+                    "baseline": { "value": "top" },
+                    "dx": { "value": 10 },
+                    "dy": { "value": 10 },
+                    "fill": { "value": "#fafbfc" },
+                    "text": { "field": "id" }
+                },
+                "update": {
+                    "x": { "field": "x0" },
+                    "y": { "field": "y0" },
+                    "zindex": { "value": 10 }
+                }
+            }
+        }
+    ],
+    "config": {}
+}
