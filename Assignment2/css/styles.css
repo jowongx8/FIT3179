@@ -16,7 +16,7 @@
 .highlight.vic {
     color: #b07aa1;
 }
-.highlight.ta {
+.highlight.tas {
     color: #edc948;
 }
 .highlight.wa {
@@ -24,6 +24,36 @@
 }
 .highlight.qld {
     color: #76b7b2;
+}
+.highlight.arabic {
+    color: #66c2a5;
+}
+.highlight.cantonese {
+    color: #fc8d62;
+}
+.highlight.greek {
+    color: #8da0cb;
+}
+.highlight.italian {
+    color: #e78ac3;
+}
+.highlight.mandarin {
+    color: #a6d854;
+}
+.highlight.vietnamese {
+    color: #e5c494;
+}
+.highlight.southasia {
+    color: #fb8072;
+}
+.highlight.chineseasia {
+    color: #8dd3c7;
+}
+.highlight.uk {
+    color: #80b1d3;
+}
+.highlight.nz {
+    color: #bebada;
 }
 
 .header-card {
@@ -35,11 +65,14 @@
     padding: 40px 50px;
 }
 .header-card h1 {
-    font-size: 2.2em;
-    color: #002855;
-    margin-bottom: 0.4em;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-family: "Gill Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 3em;
+    font-weight: 800;
+    color: #001b44;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.3em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 .header-card .intro {
     font-size: 1.1em;
@@ -78,10 +111,10 @@ h1 {
 
 h2 {
     font-size: 1.6em;
-    color: #004a99;
+    color: #002855;
     font-weight: 700;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 10px;
     margin-bottom: 25px;
     letter-spacing: 0.3px;
 }
@@ -169,9 +202,23 @@ p strong {
 
 .compact-pair .inner-card {
     margin: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .compact-pair .card {
     margin: 8px;
+}
+
+.compact-pair {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.compact-pair .pure-u-md-1-2 {
+    display: flex;
+    flex-direction: column;
 }
 
 .stacked-pair {
